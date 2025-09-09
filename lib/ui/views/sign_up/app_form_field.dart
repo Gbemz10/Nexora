@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nexora/ui/common/text%20validation.dart';
+import 'package:nexora/ui/views/login/login_viewmodel.dart';
 
 class AppFormField extends StatelessWidget {
   final String hintText;
@@ -22,7 +24,7 @@ class AppFormField extends StatelessWidget {
         ),
       ),
       validator: (value) {
-        return emailValidation(value);
+        return Validation.emailValidation(value);
       },
     );
   }

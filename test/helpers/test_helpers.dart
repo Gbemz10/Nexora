@@ -3,7 +3,6 @@ import 'package:mockito/mockito.dart';
 import 'package:nexora/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:nexora/services/network_service.dart';
-import 'package:nexora/services/authentication_service_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -15,8 +14,6 @@ import 'test_helpers.mocks.dart';
     MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<NetworkService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<AuthenticationServiceService>(
-        onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
   ],
 )
@@ -25,7 +22,6 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterNetworkService();
-  getAndRegisterAuthenticationServiceService();
 // @stacked-mock-register
 }
 
@@ -87,13 +83,6 @@ MockNetworkService getAndRegisterNetworkService() {
   _removeRegistrationIfExists<NetworkService>();
   final service = MockNetworkService();
   locator.registerSingleton<NetworkService>(service);
-  return service;
-}
-
-MockAuthenticationServiceService getAndRegisterAuthenticationServiceService() {
-  _removeRegistrationIfExists<AuthenticationServiceService>();
-  final service = MockAuthenticationServiceService();
-  locator.registerSingleton<AuthenticationServiceService>(service);
   return service;
 }
 // @stacked-mock-create

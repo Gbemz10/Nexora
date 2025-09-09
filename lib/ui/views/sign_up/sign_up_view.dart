@@ -3,8 +3,9 @@ import 'package:nexora/ui/views/sign_up/app_form_field.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'sign_up_viewmodel.dart';
-import 'sign_up_logic.dart';
 import 'sign_up_view.form.dart';
+import 'package:nexora/app/app.dart';
+import 'package:nexora/ui/common/text validation.dart';
 
 @FormView(fields: [
   FormTextField(name: 'email'),
@@ -46,7 +47,7 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                 height: 17,
               ),
               Form(
-                key: signUpFormKey,
+                key: viewModel.signUpFormKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -54,7 +55,7 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                         hintText: "Email",
                       ),
                       validator: (value) {
-                        return emailValidation(value);
+                        return Validation.emailValidation(value);
                       },
                     ),
                     const SizedBox(
@@ -67,7 +68,7 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                         //     IconButton(onPressed: onPressed, icon: icon),
                       ),
                       validator: (value) {
-                        return passwordValidation(value!);
+                        return Validation.passwordValidation(value!);
                       },
                     ),
                     const SizedBox(
@@ -93,22 +94,8 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                     ),
                     TextButton(
                       onPressed: () {
-                        // try {
-                        //   if (signUpFormKey.currentState!.validate()) {
-                        //     Navigator.of(context).push(
-                        //       MaterialPageRoute(
-                        //         builder: (context) => const LoginView(),
-                        //       ),
-                        //     );
-                        //   }
-                        // } catch (e) {
-                        //   debugPrint(e.toString());
-                        // }
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const LoginView(),
-                          ),
-                        );
+                        //
+                        viewModel.navigateToLoginPage();
                       },
                       child: const Text.rich(
                         TextSpan(

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import '../sign_up/sign_up_view.dart';
-import '../sign_up/sign_up_logic.dart';
+//import '../sign_up/sign_up_logic.dart';
 import 'login_viewmodel.dart';
 import 'login_view.form.dart';
+import 'package:nexora/ui/common/text validation.dart';
 
 @FormView(fields: [
   FormTextField(name: 'email'),
@@ -48,7 +49,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 height: 17,
               ),
               Form(
-                key: signUpFormKey,
+                key: viewModel.signUpFormKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -57,7 +58,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                       ),
                       controller: emailController,
                       validator: (value) {
-                        emailValidation(value);
+                        Validation.emailValidation(value);
                       },
                     ),
                     const SizedBox(
@@ -66,12 +67,11 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                     TextFormField(
                       decoration: const InputDecoration(
                         hintText: "Password",
-                        // suffixIcon:
-                        //     IconButton(onPressed: onPressed, icon: icon),
+                        // add hide password icon
                       ),
                       controller: passwordController,
                       validator: (value) {
-                        passwordValidation(value!);
+                        Validation.passwordValidation(value);
                       },
                     ),
                     const SizedBox(
@@ -89,13 +89,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                       ),
                       child: TextButton(
                         onPressed: () {
-                          // try {
-                          //   if (signUpFormKey.currentState!.validate()) {
-                          //
-                          //   }
-                          // } catch (e) {
-                          //   debugPrint(e.toString());
-                          // }
+                          // validation for email and password
                         },
                         child: const Text(
                           "Login",
@@ -108,7 +102,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        viewModel.goBack();
                       },
                       child: const Text.rich(
                         TextSpan(
