@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexora/ui/common/app_form_field.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import '../sign_up/sign_up_view.dart';
@@ -26,7 +27,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            // mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(
@@ -53,36 +54,26 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: "Email",
                       ),
-                      controller: emailController,
                       validator: (value) {
-                        Validation.emailValidation(value);
+                        return Validation.emailValidation(value);
                       },
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 16,
                     ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Password",
-                        // add hide password icon
-                      ),
+                    PasswordFormField(
+                      hintText: "Password",
                       controller: passwordController,
-                      validator: (value) {
-                        Validation.passwordValidation(value);
-                      },
                     ),
                     const SizedBox(
-                      height: 200,
+                      height: 100,
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      constraints: const BoxConstraints(
-                        maxWidth: 355,
-                        maxHeight: 65,
-                      ),
+                      width: 355,
+                      height: 65,
                       decoration: BoxDecoration(
                         color: Colors.lightBlue,
                         borderRadius: BorderRadius.circular(8),
@@ -90,13 +81,18 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                       child: TextButton(
                         onPressed: () {
                           // validation for email and password
+                          if (viewModel.signUpFormKey.currentState!
+                              .validate()) {
+                            viewModel.navigateToSignUpPage();
+                          }
                         },
-                        child: const Text(
+                        child: Text(
                           "Login",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 21,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 21,
+                                  ),
                         ),
                       ),
                     ),
@@ -104,21 +100,25 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                       onPressed: () {
                         viewModel.goBack();
                       },
-                      child: const Text.rich(
+                      child: Text.rich(
                         TextSpan(
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: Colors.black, fontSize: 18),
                           text: "Don't have an account yet?",
                           children: <TextSpan>[
                             TextSpan(
                               text: " Sign up",
-                              style: TextStyle(
-                                  color: Colors.lightBlue,
-                                  fontSize: 18,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.lightBlue),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: Colors.lightBlue,
+                                    fontSize: 18,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.lightBlue,
+                                  ),
                             ),
                           ],
                         ),

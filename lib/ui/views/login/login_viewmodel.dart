@@ -10,15 +10,16 @@ class LoginViewModel extends FormViewModel {
   final GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-   final _navigationService = locator<NavigationService>();
-    void navigateToHomePage(){
-    _navigationService.navigateToHomeView();
+  final _navigationService = locator<NavigationService>();
+  void navigateToSignUpPage() {
+    _navigationService.navigateToSignUpView();
   }
-    void navigateToLoginPage(){
+
+  void navigateToLoginPage() {
     _navigationService.navigateToLoginView();
   }
-   void goBack(){
+
+  void goBack() {
     _navigationService.back();
   }
 }
-

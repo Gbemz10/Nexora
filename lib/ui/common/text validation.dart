@@ -6,6 +6,7 @@ import 'package:nexora/app/app.locator.dart';
 import 'package:nexora/app/app.router.dart';
 
 class Validation {
+  final GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   static RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   static String? emailValidation(String? email) {
     if (email != null) {

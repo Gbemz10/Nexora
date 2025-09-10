@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexora/ui/views/sign_up/app_form_field.dart';
+import 'package:nexora/ui/common/app_form_field.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'sign_up_viewmodel.dart';
@@ -50,26 +50,16 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                 key: viewModel.signUpFormKey,
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Email",
-                      ),
-                      validator: (value) {
-                        return Validation.emailValidation(value);
-                      },
+                    EmailFormField(
+                      hintText: "Email",
+                      controller: emailController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Password",
-                        // suffixIcon:
-                        //     IconButton(onPressed: onPressed, icon: icon),
-                      ),
-                      validator: (value) {
-                        return Validation.passwordValidation(value!);
-                      },
+                    PasswordFormField(
+                      hintText: "Password",
+                      controller: passwordController,
                     ),
                     const SizedBox(
                       height: 100,
@@ -82,22 +72,27 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
+                        onPressed: () {
+                          if (viewModel.signUpFormKey.currentState!
+                              .validate()) {
+                            viewModel.navigateToLoginPage();
+                          }
+                        },
+                        child: Text(
                           "Create",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 21,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 21,
+                                  ),
                         ),
                       ),
                     ),
                     TextButton(
                       onPressed: () {
-                        //
                         viewModel.navigateToLoginPage();
                       },
-                      child: const Text.rich(
+                      child: Text.rich(
                         TextSpan(
                           style: TextStyle(
                             color: Colors.black,
@@ -107,12 +102,15 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                             TextSpan(text: "Already have an account?"),
                             TextSpan(
                               text: " Log in",
-                              style: TextStyle(
-                                color: Colors.lightBlue,
-                                fontSize: 18,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.lightBlue,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: Colors.lightBlue,
+                                    fontSize: 18,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.lightBlue,
+                                  ),
                             ),
                           ],
                         ),

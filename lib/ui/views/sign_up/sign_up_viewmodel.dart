@@ -13,8 +13,8 @@ class SignUpViewModel extends FormViewModel {
   static final _navigationService = locator<NavigationService>();
   static final homeKey = GlobalKey<FormState>();
 
-  void navigateToHomePage() {
-    _navigationService.navigateToHomeView();
+  void navigateToSignUpPage() {
+    _navigationService.navigateToSignUpView();
   }
 
   void navigateToLoginPage() {
